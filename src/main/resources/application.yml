@@ -120,3 +120,24 @@ logging:
   logback:
     rollingpolicy:
       file-name-pattern: ./var/logs/app.%d{yyyy-MM-dd}.%i.log
+org:
+  quartz:
+    scheduler:
+      instanceName: myScheduler  # New instance name
+      instanceId: AUTO
+    threadPool:
+      threadCount: 5  # Define thread count
+job:
+  emailJob:
+    cronExpression: "0 0 9-21 * * ?"  # Run every hour from 9 AM to 9 PM
+    startDelay: 0
+    repeatInterval: 60000  # You may adjust this if you want to change the repeat interval
+    description: Send email notification for new posts
+    key: NewPostEmailJob
+
+  dataSyncJob:
+    cronExpression: "0 0 * * * ?"  # Run every hour
+    startDelay: 0
+    repeatInterval: 60000  # You may adjust this if you want to change the repeat interval
+    description: Sync post view data
+    key: PostViewSyncJob

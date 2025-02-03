@@ -2,17 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.mewebstudio</groupId>
-    <artifactId>java-spring-boot-boilerplate</artifactId>
+
+    <groupId>com.hungpt</groupId>
+    <artifactId>my-blog</artifactId>
     <version>0.0.2</version>
-    <name>java-spring-boot-boilerplate</name>
-    <description>Java Spring Boot Boilerplate (Spring Boot 3)</description>
+    <name>my-blog</name>
+    <description>My blog</description>
+
     <properties>
         <java.version>17</java.version>
         <lombok.version>1.18.28</lombok.version>
@@ -20,6 +23,8 @@
         <slf4j.version>2.0.7</slf4j.version>
         <beanutils.version>1.9.4</beanutils.version>
         <jjwt-version>0.11.5</jjwt-version>
+        <quartz.version>2.3.2</quartz.version>
+        <modelmapper.version>2.4.4</modelmapper.version>
         <commons-validator-version>1.7</commons-validator-version>
         <passay.version>1.6.2</passay.version>
         <swagger.version>2.0.2</swagger.version>
@@ -32,6 +37,7 @@
         <checkstyle-version>9.0</checkstyle-version>
         <skipITs>false</skipITs>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,6 +54,30 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId> <!-- This includes Logback -->
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -116,12 +146,6 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
             <version>${jjwt-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -222,6 +246,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
