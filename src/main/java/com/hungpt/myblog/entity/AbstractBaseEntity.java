@@ -48,12 +48,12 @@ public abstract class AbstractBaseEntity implements Serializable {
     private String deletedBy;  // Stores who deleted the entity (if applicable)
 
     @Column(name = "status", nullable = false)
-    private String status;  // For example: ACTIVE, INACTIVE, DELETED, etc.
+    private Boolean isDeleted;  // For example: ACTIVE, INACTIVE, DELETED, etc.
 
     // Soft delete logic: mark the entity as deleted instead of physically removing it
     public void softDelete(String deletedBy) {
         this.deletedAt = LocalDateTime.now();  // Set the deletion timestamp
         this.deletedBy = deletedBy;  // Set the user who performed the deletion
-        this.status = "DELETED";  // Optionally change the status to "DELETED"
+        this.isDeleted = false;
     }
 }

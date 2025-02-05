@@ -1,6 +1,6 @@
 package com.hungpt.myblog.dto.validator;
 
-import com.mewebstudio.javaspringbootboilerplate.dto.annotation.Password;
+import com.hungpt.myblog.dto.annotation.Password;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.passay.*;

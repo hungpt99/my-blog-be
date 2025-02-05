@@ -18,7 +18,7 @@ public class ConfigService {
     public List<ConfigResponse> getConfigs() {
         List<Config> configs = configRepository.findAll();
         return configs.stream()
-                .map(config -> new ConfigResponse().fromEntity(config))
+                .map(ConfigResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 
@@ -44,6 +44,6 @@ public class ConfigService {
         configRepository.save(existingConfig);
 
         // Return updated configuration response
-        return new ConfigResponse().fromEntity(existingConfig);
+        return ConfigResponse.fromEntity(existingConfig);
     }
 }

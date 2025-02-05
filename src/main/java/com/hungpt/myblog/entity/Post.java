@@ -55,6 +55,10 @@ public class Post extends AbstractBaseEntity {
     )
     private Set<Tag> tags = new HashSet<>();
 
+    // Relationship with Comments (One-to-Many)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Comment> comments = new HashSet<>();
+
     // Soft delete support
     @Column(nullable = false)
     private boolean deleted = false;

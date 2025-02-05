@@ -1,7 +1,9 @@
 package com.hungpt.myblog.dto.response;
 
 import com.hungpt.myblog.entity.Category;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,10 +14,8 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class CategoryResponse extends AbstractBaseResponse implements Serializable, IResponse<CategoryResponse, Category> {
+@SuperBuilder
+public class CategoryResponse extends AbstractBaseResponse implements Serializable {
 
     private UUID id;
     private LocalDateTime createdAt;
@@ -24,8 +24,8 @@ public class CategoryResponse extends AbstractBaseResponse implements Serializab
     private String description;
 
     // Implement the fromEntity method to convert from entity to DTO
-    @Override
-    public CategoryResponse fromEntity(Category entity) {
+
+    public static CategoryResponse fromEntity(Category entity) {
 
         return CategoryResponse.builder()
                 .id(entity.getId())

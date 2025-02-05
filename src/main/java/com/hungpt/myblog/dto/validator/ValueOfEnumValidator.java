@@ -1,6 +1,6 @@
 package com.hungpt.myblog.dto.validator;
 
-import com.mewebstudio.javaspringbootboilerplate.dto.annotation.ValueOfEnum;
+import com.hungpt.myblog.dto.annotation.ValueOfEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

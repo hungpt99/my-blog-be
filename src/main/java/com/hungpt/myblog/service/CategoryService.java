@@ -33,20 +33,20 @@ public class CategoryService {
         // Set any other properties here
 
         category = categoryRepository.save(category);
-        return toCategoryResponse(category);
+        return CategoryResponse.fromEntity(category);
     }
 
     // Get all categories and return a list of CategoryResponse
     public List<CategoryResponse> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
-        return categories.stream().map(this::toCategoryResponse).toList();
+        return categories.stream().map(CategoryResponse::fromEntity).toList();
     }
 
     // Get a category by ID and return a CategoryResponse
     public CategoryResponse getCategoryById(UUID id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
-        return toCategoryResponse(category);
+        return CategoryResponse.fromEntity(category);
     }
 
     // Update a category and return the updated CategoryResponse
@@ -59,7 +59,7 @@ public class CategoryService {
         // Set other fields for updating
 
         category = categoryRepository.save(category);
-        return toCategoryResponse(category);
+        return CategoryResponse.fromEntity(category);
     }
 
     // Soft delete a category and return void (category is updated in the database)
@@ -78,14 +78,4 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
-    // Helper method to map Category entity to CategoryResponse DTO
-    private CategoryResponse toCategoryResponse(Category category) {
-        CategoryResponse categoryResponse = new CategoryResponse();
-        categoryResponse.setId(category.getId());
-        categoryResponse.setName(category.getName());
-        categoryResponse.setDescription(category.getDescription());
-        categoryResponse.setCreatedAt(category.getCreatedAt());
-        categoryResponse.setUpdatedAt(category.getUpdatedAt());
-        return categoryResponse;
-    }
 }

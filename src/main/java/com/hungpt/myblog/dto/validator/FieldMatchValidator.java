@@ -1,6 +1,6 @@
 package com.hungpt.myblog.dto.validator;
 
-import com.mewebstudio.javaspringbootboilerplate.dto.annotation.FieldMatch;
+import com.hungpt.myblog.dto.annotation.FieldMatch;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;

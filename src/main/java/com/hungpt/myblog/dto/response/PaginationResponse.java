@@ -4,12 +4,14 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @Getter
 @Setter
+@SuperBuilder
 public class PaginationResponse<T> extends AbstractBaseResponse {
     @Schema(
         name = "page",
@@ -50,12 +52,4 @@ public class PaginationResponse<T> extends AbstractBaseResponse {
         )
     )
     private List<T> items;
-
-    public PaginationResponse(final Page<?> pageModel, final List<T> items) {
-        this.page = pageModel.getNumber() + 1;
-        this.pages = pageModel.getTotalPages();
-        this.size = pageModel.getSize();
-        this.total = pageModel.getTotalElements();
-        this.items = items;
-    }
 }

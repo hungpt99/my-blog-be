@@ -1,7 +1,9 @@
 package com.hungpt.myblog.dto.response;
 
 import com.hungpt.myblog.entity.Config;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,10 +14,8 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class ConfigResponse extends AbstractBaseResponse implements Serializable, IResponse<ConfigResponse, Config> {
+@SuperBuilder
+public class ConfigResponse extends AbstractBaseResponse implements Serializable {
 
     private UUID id;
     private LocalDateTime createdAt;
@@ -25,21 +25,8 @@ public class ConfigResponse extends AbstractBaseResponse implements Serializable
     private String description;
     private String type;
 
-    // Constructor
-    public ConfigResponse(UUID id, LocalDateTime createdAt, LocalDateTime updatedAt, String key, String value,
-                          String description, String type) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.key = key;
-        this.value = value;
-        this.description = description;
-        this.type = type;
-    }
-
     // Implement the fromEntity method to convert from entity to DTO using builder
-    @Override
-    public ConfigResponse fromEntity(Config entity) {
+    public static ConfigResponse fromEntity(Config entity) {
         if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
         }

@@ -3,6 +3,7 @@ package com.hungpt.myblog.dto.response.user;
 import com.hungpt.myblog.dto.response.AbstractBaseResponse;
 import com.hungpt.myblog.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;

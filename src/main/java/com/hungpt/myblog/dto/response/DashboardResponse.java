@@ -1,6 +1,8 @@
 package com.hungpt.myblog.dto.response;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
@@ -9,9 +11,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@SuperBuilder
 public class DashboardResponse extends AbstractBaseResponse implements Serializable {
 
     private long totalPosts;

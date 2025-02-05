@@ -1,8 +1,8 @@
 package com.hungpt.myblog.dto.response;
 
 import com.hungpt.myblog.entity.Tag;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,9 +11,10 @@ import java.util.UUID;
 /**
  * DTO for {@link com.hungpt.myblog.entity.Tag}
  */
-@EqualsAndHashCode(callSuper = true)
-@Value
-public class TagResponse extends AbstractBaseResponse implements Serializable, IResponse<TagResponse, Tag> {
+@Getter
+@Setter
+@SuperBuilder
+public class TagResponse extends AbstractBaseResponse implements Serializable {
 
     UUID id;
     LocalDateTime createdAt;
@@ -22,7 +23,8 @@ public class TagResponse extends AbstractBaseResponse implements Serializable, I
     String updatedBy;
     LocalDateTime deletedAt;
     String deletedBy;
-    String status;
+    boolean isDeleted;
+
     String name;
 
     /**
@@ -31,22 +33,21 @@ public class TagResponse extends AbstractBaseResponse implements Serializable, I
      * @param entity the Tag entity to convert.
      * @return a TagResponse DTO.
      */
-    @Override
-    public TagResponse fromEntity(Tag entity) {
+    public static TagResponse fromEntity(Tag entity) {
         if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
         }
 
-        return new TagResponse(
-                entity.getId(),
-                entity.getCreatedAt(),
-                entity.getUpdatedAt(),
-                entity.getCreatedBy(),
-                entity.getUpdatedBy(),
-                entity.getDeletedAt(),
-                entity.getDeletedBy(),
-                entity.getStatus(),
-                entity.getName()
-        );
+        return TagResponse.builder() // Using builder to create TagResponse
+                .id(entity.getId())
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .createdBy(entity.getCreatedBy())
+                .updatedBy(entity.getUpdatedBy())
+                .deletedAt(entity.getDeletedAt())
+                .deletedBy(entity.getDeletedBy())
+                .isDeleted(entity.getIsDeleted())
+                .name(entity.getName())
+                .build();
     }
 }

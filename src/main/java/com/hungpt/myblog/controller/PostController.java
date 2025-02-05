@@ -19,7 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(ApiConstants.API_COMMON_PREFIX + ApiConstants.API_POST_PREFIX) // Using the constant for the admin prefix
 @RequiredArgsConstructor
-@Tag(name = "001. Admin Auth", description = "Auth API")
+@Tag(name = "001. Post", description = "Auth API")
 public class PostController extends AbstractBaseController {
 
     private final PostService postService;

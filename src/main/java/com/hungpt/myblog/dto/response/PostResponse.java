@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,10 +19,8 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class PostResponse extends AbstractBaseResponse implements Serializable, IResponse<PostResponse, Post> {
+@SuperBuilder
+public class PostResponse extends AbstractBaseResponse implements Serializable{
 
     private UUID id;
     private LocalDateTime createdAt;
@@ -33,8 +32,8 @@ public class PostResponse extends AbstractBaseResponse implements Serializable, 
     private long commentCount;
 
     // Implement the fromEntity method
-    @Override
-    public PostResponse fromEntity(Post entity) {
+
+    public static PostResponse fromEntity(Post entity) {
         if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
         }

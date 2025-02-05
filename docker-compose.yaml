@@ -1,7 +1,9 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres:13.11-bullseye
-    container_name: java-spring-boot-boilerplate-postgres
+    container_name: blog-postgres
     restart: always
     environment:
       POSTGRES_DB: app_db
@@ -13,10 +15,11 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ./var/logs/postgresql:/var/log/postgresql
     networks:
-      - java-spring-boot-boilerplate-network
+      - blog-network
+
   redis:
     image: redis:7.0.12-alpine
-    container_name: java-spring-boot-boilerplate-redis
+    container_name: blog-redis
     restart: always
     command: redis-server --save 20 1 --loglevel warning --requirepass "secret"
     volumes:
@@ -24,11 +27,12 @@ services:
     ports:
       - '6379:6379'
     networks:
-      - java-spring-boot-boilerplate-network
+      - blog-network
+
   redis-commander:
     image: rediscommander/redis-commander:redis-commander-210
     restart: always
-    container_name: java-spring-boot-boilerplate-redis-commander
+    container_name: blog-redis-commander
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -39,21 +43,22 @@ services:
     ports:
       - '6380:8081'
     networks:
-      - java-spring-boot-boilerplate-network
+      - blog-network
+
   mailhog:
     image: mailhog/mailhog:latest
-    container_name: java-spring-boot-boilerplate-mailhog
+    container_name: blog-mailhog
     restart: always
     ports:
       - '8025:8025'
       - '1025:1025'
     networks:
-      - java-spring-boot-boilerplate-network
+      - blog-network
 
 volumes:
   postgres-data:
   redis-data:
 
 networks:
-  java-spring-boot-boilerplate-network:
+  blog-network:
     driver: bridge

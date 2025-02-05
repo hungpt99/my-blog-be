@@ -49,4 +49,17 @@ public final class ApiConstants {
      * CATEGORY
      */
     public static final String API_CATEGORY_PREFIX = "/categories";
+    public static final String API_CREATE_CATEGORY = "/";
+    public static final String API_UPDATE_CATEGORY = "/{id}";
+    public static final String API_DELETE_CATEGORY = "/{id}";
+    /**
+     * COMMENT API constants
+     */
+    public static final String API_GET_COMMENTS = "/{postId}";
+    public static final String API_CREATE_COMMENT = "/";
+    public static final String API_DELETE_COMMENT = "/{commentId}";
+    /**
+     * TAG API constants
+     */
+    public static final String API_TAG_PREFIX = "/";
 }

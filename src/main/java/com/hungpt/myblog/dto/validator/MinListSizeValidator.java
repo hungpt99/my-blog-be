@@ -1,6 +1,6 @@
 package com.hungpt.myblog.dto.validator;
 
-import com.mewebstudio.javaspringbootboilerplate.dto.annotation.MinListSize;
+import com.hungpt.myblog.dto.annotation.MinListSize;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
