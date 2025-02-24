@@ -38,6 +38,7 @@ public final class ApiConstants {
     public static final String API_GET_POSTS_BY_CATEGORY = "/category/{seriesId}"; // Get posts by category
     public static final String API_UPDATE_POST_STATUS = "/{id}/status"; // Update post status
     public static final String API_GET_POSTS_WITH_FILTERS = "/filter"; // Get posts with filters and pagination
+    public static final String API_UPDATE_POST_VIEWS = "/{id}/view";
 
     /**
      * DASHBOARD API

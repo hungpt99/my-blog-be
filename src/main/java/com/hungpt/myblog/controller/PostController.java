@@ -93,4 +93,13 @@ public class PostController extends AbstractBaseController {
         Page<PostResponse> posts = postService.getPostsWithFilters(title, status, tagId, categoryId, page, size);
         return ResponseEntity.ok(posts);
     }
+
+    @PatchMapping(ApiConstants.API_UPDATE_POST_VIEWS)
+    @Operation(summary = "Increase post views", description = "Increment the view count of a specific post")
+    @ApiResponse(responseCode = "200", description = "View count updated successfully")
+    public ResponseEntity<Void> incrementPostViews(@PathVariable UUID id) {
+        postService.incrementViews(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

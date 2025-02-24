@@ -24,6 +24,7 @@ import java.util.UUID;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final PostViewService postViewService;
 
     // Create a new post
     @Transactional
@@ -63,6 +64,9 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("Post not found"));
 
+        // Increment view count
+        postViewService.incrementViewCount(postId.toString());
+
         return mapToResponse(post);
     }
 
@@ -96,7 +100,7 @@ public class PostService {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .status(post.getStatus())
-                .viewCount(post.getViewCount())
+                .viewCount(postViewService.getViewCountForToday(post.getId().toString()))
                 .commentCount(post.getCommentCount())
                 .build();
     }
@@ -106,23 +110,13 @@ public class PostService {
         post.setStatus(status);
         post.setUpdatedAt(LocalDateTime.now());
         postRepository.save(post);
-        return PostResponse.builder()
-                .id(post.getId())
-                .createdAt(post.getCreatedAt())
-                .updatedAt(post.getUpdatedAt())
-                .title(post.getTitle())
-                .content(post.getContent())
-                .status(post.getStatus())
-                .viewCount(post.getViewCount())
-                .commentCount(post.getCommentCount())
-                .build();
+        return mapToResponse(post);
     }
 
     public List<PostResponse> getPostsByTag(UUID tagId) {
         List<Post> posts = postRepository.findByTagId(tagId);
         return posts.stream().map(this::mapToResponse).toList();
     }
-
 
     public List<PostResponse> getPostByCategory(UUID categoryId) {
         List<Post> posts = postRepository.findByCategoryId(categoryId);
@@ -148,5 +142,4 @@ public class PostService {
         // Map the Post entities to PostResponse and return the page
         return postsPage.map(this::mapToResponse);
     }
-
 }
