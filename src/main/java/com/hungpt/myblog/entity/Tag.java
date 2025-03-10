@@ -3,6 +3,9 @@ package com.hungpt.myblog.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+import java.util.UUID;
+
 /**
  * Entity representing a Tag (could be associated with posts or content).
  */
@@ -19,4 +22,7 @@ public class Tag extends AbstractBaseEntity {
     @Column(nullable = false, unique = true, length = 255)
     private String name;
 
+    // Relationship with Post entity
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+    private Set<Post> posts;
 }

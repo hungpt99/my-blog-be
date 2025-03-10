@@ -1,5 +1,6 @@
 package com.hungpt.myblog.controller.admin;
 
+import com.hungpt.myblog.annotation.AdminController;
 import com.hungpt.myblog.constants.ApiConstants;
 import com.hungpt.myblog.controller.AbstractBaseController;
 import com.hungpt.myblog.dto.request.auth.LoginRequest;
@@ -7,6 +8,7 @@ import com.hungpt.myblog.dto.response.DetailedErrorResponse;
 import com.hungpt.myblog.dto.response.ErrorResponse;
 import com.hungpt.myblog.dto.response.SuccessResponse;
 import com.hungpt.myblog.dto.response.auth.TokenResponse;
+import com.hungpt.myblog.dto.response.user.UserResponse;
 import com.hungpt.myblog.service.AuthService;
 import com.hungpt.myblog.service.MessageSourceService;
 import com.hungpt.myblog.service.PasswordResetTokenService;
@@ -19,6 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.hungpt.myblog.util.Constants.SECURITY_SCHEME_NAME;
 
 @RestController
+@AdminController()
 @RequestMapping(ApiConstants.API_ADMIN_PREFIX + ApiConstants.API_AUTH_PREFIX)
 @RequiredArgsConstructor
 @Tag(name = "001. Admin Auth", description = "Auth API")
@@ -184,5 +188,32 @@ public class AuthController extends AbstractBaseController {
         return ResponseEntity.ok(SuccessResponse.builder()
                 .message(messageSourceService.get("logout_successfully"))
                 .build());
+    }
+
+    @GetMapping(ApiConstants.API_VERSION + "/me")
+    @Operation(
+            summary = "Get authenticated user information",
+            security = @SecurityRequirement(name = SECURITY_SCHEME_NAME),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successful operation",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = UserResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unauthorized",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    )
+            }
+    )
+    public ResponseEntity<UserResponse> getAuthenticatedUser() {
+        return ResponseEntity.ok(UserResponse.convert(userService.getUser()));
     }
 }

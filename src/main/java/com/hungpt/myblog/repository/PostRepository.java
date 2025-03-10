@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -43,4 +44,17 @@ public interface PostRepository extends JpaRepository<Post, UUID>, JpaSpecificat
 
     @Query("SELECT p FROM Post p WHERE p.category.id = :categoryId")
     List<Post> findByCategoryId(@Param("categoryId") UUID categoryId);
+
+    /**
+     * Find post by slug.
+     */
+    Optional<Post> findBySlug(String slug);
+
+    /**
+     * Add a tag to a post.
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO post_tag (post_id, tag_id) VALUES (:postId, :tagId)", nativeQuery = true)
+    void addTagToPost(@Param("postId") UUID postId, @Param("tagId") UUID tagId);
 }
